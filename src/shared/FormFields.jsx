@@ -3,8 +3,8 @@ import { useState } from "react";
 import useStyles from "./style";
 import { equal } from "../utils/javascript";
 import DemoTextField from "./DemoTextField";
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import classNames from "classnames";
 import DemoAutoComplete from "./DemoAutoComplete";
 

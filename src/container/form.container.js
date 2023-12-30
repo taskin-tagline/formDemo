@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { equal, getObject, head, last } from "../utils/javascript";
 import validation from "../utils/validation";
+import { useDispatch } from "react-redux";
+import { SET_FORM_DATA, SET_FORM_PATTERN_DATA } from "../redux/constants";
 
 const FormContainer = ({ attribute, defaultValues, formPath }) => {
   const [formData, setFormData] = useState(defaultValues);
   const [error, setError] = useState({});
-  // const dispatch = useDispatch();
-  // const { parent } = formPath;
+  const dispatch = useDispatch();
+  const { parent } = formPath;
 
   const handleChange = (e, callback) => {
     const { name, value } = e.target;
     const countryCodeName = e.target?.countryCodeName;
-    //   const countryCodeNumber = e.target?.countryCodeNumber;
+      const countryCodeNumber = e.target?.countryCodeNumber;
     setError({
       ...error,
       [name]: validate(name, value, countryCodeName),
@@ -22,23 +24,23 @@ const FormContainer = ({ attribute, defaultValues, formPath }) => {
     };
     setFormData(updatedFormData);
 
-    //   dispatch({
-    //     type: SET_FORM_DATA,
-    //     payload: {
-    //       [parent]: { ...formData, [name]: equal(value, "") ? null : value },
-    //     },
-    //   });
+      dispatch({
+        type: SET_FORM_DATA,
+        payload: {
+          [parent]: { ...formData, [name]: equal(value, "") ? null : value },
+        },
+      });
 
-    //   countryCodeName &&
-    //     dispatch({
-    //       type: SET_FORM_PATTERN_DATA,
-    //       payload: {
-    //         [parent]: {
-    //           countryCodeName,
-    //           countryCodeNumber,
-    //         },
-    //       },
-    //     });
+      countryCodeName &&
+        dispatch({
+          type: SET_FORM_PATTERN_DATA,
+          payload: {
+            [parent]: {
+              countryCodeName,
+              countryCodeNumber,
+            },
+          },
+        });
   };
 
   const validate = (name, value, ...rest) => {
